@@ -609,13 +609,13 @@
   timeline.push({
     timeline: information //被试基本信息收集
   });
-  // timeline.push(instructions); //呈现实验指导语
-  // timeline.push(loop_node);//练习 //判断给予哪种反馈//判断是否能进入正式实验
-  // timeline.push(feedback_goformal);//进入实验的反馈
-  // timeline.push(formal); //正式实验
-  // timeline.push(feedback_block); //正式实验每个block的反馈
-  // timeline.push(rest); //block之间的休息
-  // timeline.push(repeatblock); //重复block
+  timeline.push(instructions); //呈现实验指导语
+  timeline.push(loop_node);//练习 //判断给予哪种反馈//判断是否能进入正式实验
+  timeline.push(feedback_goformal);//进入实验的反馈
+  timeline.push(formal); //正式实验
+  timeline.push(feedback_block); //正式实验每个block的反馈
+  timeline.push(rest); //block之间的休息
+  timeline.push(repeatblock); //重复block
   timeline.push(finish) //结束语
 
   jsPsych.github.config({
