@@ -594,8 +594,8 @@
   var finish = {
     type: "html-keyboard-response",
     stimulus: `
-    <p>感谢您参加我们的实验，请按任意键下载csv，并将下载好的csv发送给研究者。</p>
-    <p>请你手动通过 ESC 键退出全屏后关闭本页面。再次感谢您参与本实验！</p>`
+    <p>感谢您参加我们的实验，请按任意键开始上传数据，并通知研究者。</p>
+    <p>感谢您参与本实验！</p>`
   };
   timeline.push(finish);
 
@@ -637,7 +637,7 @@
             `new data: rawdata_${info["ID"]}_1a.csv is compeleted`,
             encodeURI(jsPsych.data.get().csv())
         )) { 
-          DOM.innerHTML = "上传完毕";
+          DOM.innerHTML = "上传完毕，再次感谢您参与本实验。请退出实验程序。";
         } else { 
           DOM.innerHTML = "上传失败，联系主试";
         }
