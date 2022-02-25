@@ -1,11 +1,10 @@
-SEP_EXP1a-1b
+SPE_EXP1a-1b
 ---
-This is an example demo experiemnt made from jsPsych in the Covid-tagging project
-
+This is Experiemnt 1(as an example demo experiemnt) made from jsPsych in the Covid-tagging project. 
 
 jsPsych Environment 
 ---
-Version 6.3.0
+Version 6.3.0 (Note:higer versions may cause errors)
 
 Experiment Programs
 ---
@@ -23,8 +22,8 @@ Note
 ---
 While you are running the experiment...
 
-- Remember to ask the participants to send the raw csv file to you directly. Just directly put all the raw datasets in a file and read them in R. __Do not open the raw csv and modify anything.__ Otherwise,reading errors may occur.  
+- Remember to ask the participants to click the final button to upload data file to Github. Ask the participants to terminate the experiemnt only after seeing the sucess signal.
 
-If you want to run the experiment remotely（eg., from your local terminal):
+If you want to run the experiment remotely（e.g., from your local terminal):
 
-- you should download all the folders in the current repository (to ensure that all the js. pugins are included in the folder). 
+- you should fork the whole folders in the current repository (to ensure that all the js. pugins are included). 
