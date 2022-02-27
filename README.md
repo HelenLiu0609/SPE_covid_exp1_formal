@@ -8,11 +8,11 @@ Version 6.3.0 (Note:higer versions may cause errors)
 
 Experiment Programs
 ---
-This is the link to run [Exp 1a](hhttps://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_exp1a.html)
+This is the link to run [Exp 1a](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_exp1a.html)
 
 This is the link to run [Exp 1b](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_exp1b.html)
 
-This is the link to run [The Questionnaire](hhttps://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_Questionnaire.html)
+This is the link to run [The Questionnaire](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_Questionnaire.html)
 
 jsPsych Raw Code
 ---
