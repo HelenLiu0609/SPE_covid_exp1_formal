@@ -26,4 +26,4 @@ While you are running the experiment...
 
 If you want to run the experiment remotely（e.g., from your local terminal):
 
-- you should fork the whole folders in the current repository (to ensure that all the js. pugins are included). 
+- you should fork the current repository（the whole folders，to ensure that all the js. pugins are included）. 
