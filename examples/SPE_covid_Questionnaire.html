@@ -912,7 +912,7 @@
             if (jsPsych.github.upload(
                 `rawdata_${info["ID"]}_survey_exp1.csv`, //基于实验修改文件名
                 `new data: rawdata_${info["ID"]}_survey_exp1.csv is compeleted`, //基于实验修改文件名
-                encodeURI(jsPsych.data.get().csv())
+                encodeURI(jsPsych.data.get().addToAll(info).csv())
             )) {
                 DOM.innerHTML = "上传完毕，再次感谢您参与问卷填写。您可以退出程序了。";
             } else {
