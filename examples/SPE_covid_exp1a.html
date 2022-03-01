@@ -83,7 +83,7 @@
     "j"
   ];
   // define accuracy baseline  参数：练习阶段正确率要求 
-  let acc = 70;
+  let acc = 10;
 
   /* define welcome message trial */
   var welcome = {
@@ -237,7 +237,7 @@
             line_width: 5 * scale,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
-            show_end_time: 1000
+            show_end_time: 1100
           },
           {
             obj_type: 'image',
@@ -292,13 +292,13 @@
           let trial_keypress = jsPsych.data.get().last(1).values()[0].correct; //该trial正确的按键
           let time = jsPsych.data.get().last(1).values()[0].rt; //被试反应时
           if (time > 1500) { //大于1500为过慢
-            return "<span class='add_' style='color:white'> 太慢! </span>"
+            return "<span class='add_' style='color:white; font-size: 30px;'> 太慢! </span>"
           } else if (keypress && trial_keypress) {
-            return "正确!"
+            return "<span style='font-size: 30px;'>正确! </span>"
           } else if (time < 200) { //小于两百为过快反应
-            return "过快!"
+            return "<span style='font-size: 30px;'>过快! </span>"
           } else {
-            return "错误!"
+            return "<span style='font-size: 30px;'>错误! </span>"
           }
         },
         choices: jsPsych.NO_KEYS,
@@ -454,7 +454,7 @@
             line_width: 5 * scale,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
             show_start_time: 500,
-            show_end_time: 1000
+            show_end_time: 1100
           },
           {
             obj_type: 'image',
@@ -564,23 +564,36 @@
   // rest 休息：加一个keyboard response 空屏呈现文字
   let blockTotalNum = 2; // 此处填入总block数量-1，比如总数量是3，那么值就需要是2
   let rest = {
-    type: 'html-button-response',
+    type: "html-button-response",
     stimulus: function () {
       let totaltrials = jsPsych.data.get().filter(
         [{ correct: true }, { correct: false }]
       );
       return `
-      <p>你当前还剩余${blockTotalNum}组实验</p>
-    <p font-size: 48px; font-weight: bold;">现在是休息时间。</p>
-    <p>当你结束休息后，你可以点击 “结束休息” 按钮继续实验。</p>`
+                    <p>你当前还剩余${blockTotalNum}组实验</p>
+                    <p>现在是休息时间，当你结束休息后，你可以点击 结束休息 按钮 继续</p>
+                    <p>建议休息时间还剩余<span id="iii">60</span>秒</p>`
     },
     choices: ["结束休息"],
-    trial_duration: 60000,
+    on_load: function () {
+      $("body").css("cursor", "default");
+      let tmpTime = setInterval(function () {
+        $("#iii").text(parseInt($("#iii").text()) - 1);
+        if (parseInt($("#iii").text()) < 1) {
+          $("#iii").parent().text("当前限定休息时间已到达，如果还未到达状态，请继续休息");
+          clearInterval(parseInt(sessionStorage.getItem("tmpInter")));
+        }
+      }, 1000);
+      sessionStorage.setItem("tmpInter", tmpTime);
+    },
     on_finish: function () {
       $("body").css("cursor", "none"); //鼠标消失
       blockTotalNum -= 1;
+      $(document.body).unbind();
+      clearInterval(parseInt(sessionStorage.getItem("tmpInter")));
     }
   }
+
   timeline.push(rest);
 
   /* define blocks */
@@ -642,6 +655,10 @@
       } else {
         DOM.innerHTML = "上传失败，请您立即联系主试";
       }
+    },
+    default_iti: function () {
+      // 每个trial之间的休息时间，0 - 500 ms
+      return Math.floor(Math.random() * 500)
     }
     //jsPsych.data.get().addToAll(info).localSave("csv", `rawdata_${info["subj_idx"]}_1a.csv`);
   });

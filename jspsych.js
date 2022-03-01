@@ -333,6 +333,9 @@ window.jsPsych = (function () {
 
     // wait for iti
     if (typeof current_trial.post_trial_gap === null || typeof current_trial.post_trial_gap === 'undefined') {
+      if(typeof(opts.default_iti) == "function") {
+        opts.default_iti = opts.default_iti();
+      }
       if (opts.default_iti > 0) {
         setTimeout(nextTrial, opts.default_iti);
       } else {
