@@ -136,27 +136,30 @@
     on_finish: function (data) {
       info["ID"] = data.response.Q0;
     }
-  }, {
-    type: "html-button-response",
-    stimulus: "<p style = 'color : white'>你的性别</p>",
-    choices: ['男', '女', '其他'],
-    on_finish: function (data) {
-      info["Sex"] = data.response == 0 ? "Male" : (data.response == 1 ? "Female" : "Other")
-    }
-  }, {
-    type: "survey-html-form",
-    preamble: "<p style = 'color : white'>你的出生年</p>",
-    html: function () {
-      let data = localStorage.getItem(info["subj_idx"]) ? JSON.parse(localStorage.getItem(info["subj_idx"]))["BirthYear"] : "";
-      return `<p>
-        <input name="Q0" type="number" value=${data} placeholder="1900~2020" min=1900 max=2020 oninput="if(value.length>4) value=value.slice(0,4)" required />
-        </p>`
-    },
-    button_label: '继续',
-    on_finish: function (data) {
-      info["BirthYear"] = data.response.Q0;
-    }
-  }, {
+  }, 
+  //{
+  //type: "html-button-response",
+  //stimulus: "<p style = 'color : white'>你的性别</p>",
+  //choices: ['男', '女', '其他'],
+  //on_finish: function (data) {
+  //info["Sex"] = data.response == 0 ? "Male" : (data.response == 1 ? "Female" : "Other")
+  //}
+  //}, 
+  //{
+  //type: "survey-html-form",
+  //preamble: "<p style = 'color : white'>你的出生年</p>",
+  //html: function () {
+  //let data = localStorage.getItem(info["subj_idx"]) ? JSON.parse(localStorage.getItem(info["subj_idx"]))["BirthYear"] : "";
+  //return `<p>
+  //<input name="Q0" type="number" value=${data} placeholder="1900~2020" min=1900 max=2020 oninput="if(value.length>4) value=value.slice(0,4)" required />
+  //</p>`
+  //},
+  //button_label: '继续',
+  //on_finish: function (data) {
+  //info["BirthYear"] = data.response.Q0;
+  //}
+  //},  
+  {
     type: "survey-html-form",
     preamble: "<p style = 'color : white'>您的教育经历是</p>",
     html: function () {
