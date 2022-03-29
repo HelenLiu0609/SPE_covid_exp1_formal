@@ -89,7 +89,7 @@
   ];
   // define accuracy baseline  参数：练习阶段正确率要求 
   let acc = 70;
-
+  var view_texts_images = [];
   /* define welcome message trial */
   var welcome = {
     type: "html-keyboard-response",
@@ -119,7 +119,16 @@
 <script type="text/javascript">
   /* create timeline */
   var timeline = [];
-
+  function permutation(arr, num) {
+        var r = [];
+        (function f(t, a, n) {
+            if (n == 0) return r.push(t);
+            for (var i = 0, l = a.length; i < l; i++) {
+                f(t.concat(a[i]), a.slice(0, i).concat(a.slice(i + 1)), n - 1);
+            }
+        })([], arr, num);
+        return r;
+    }
   /* basic data collection instructions trial 被试基本信息收集 */
   var information = [{
     // 实验被试信息收集
@@ -140,6 +149,14 @@
     button_label: "继续",
     on_finish: function (data) {
       info["ID"] = data.response.Q0;
+      word = permutation(texts, 3)
+      texts = word[parseInt(info["ID"]) % 6]
+      key = permutation(["f","j"], 2)[parseInt(info["ID"]) % 2]
+
+      view_texts_images = []
+      jsPsych.randomization.shuffle(images).forEach((v,i) => {
+        view_texts_images.push(`<p><img src="${v}"></img><p>${texts[images.indexOf(v)]}</p></p>`);
+      })
     }
   }, 
   //{
@@ -207,18 +224,24 @@
   /* define instructions trial */
   var instructions = {
     type: "instructions",
-    pages: ['<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要20分钟完成。</p>',
-      '<p>任务概况：</p><p>本次实验您需要完成知觉匹配任务。</p><p>您将学习以下几种几何图形与不同标签的对应关系。</p>',
-      '<p>具体来说，在实验中，您需要注视电脑屏幕的中央及屏幕上出现的视觉内容。</p><p>屏幕上首先出现一个“+”，很快，“+”上方会出现一个几何图形，下方会出现文字信息。</p>',
-      '<p>接下来请您努力记下如下图形与文字的对应关系</p>',
-      '<img src="img/Tri.png"></img>' + '<p>新冠</p>',
-      '<img src="img/Cir.png"></img>' + '<p>流感</p>',
-      '<img src="img/Squ.png"></img>' + '<p>细胞</p>',
-      '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
-      '<p>完成匹配任务的练习之后，您将完成6组匹配任务，每组包括72次按键反应，每组完成后会有休息。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约20分钟。</p>',
-      '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
-      '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
-    ],
+    pages: function() {
+      let tmpT = [
+      '<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要10分钟完成。</p>',
+        '<p>任务概况：</p><p>本次实验您需要完成知觉匹配任务。</p><p>您将学习以下几种几何图形与不同标签的对应关系。</p>',
+        '<p>具体来说，在实验中，您需要注视电脑屏幕的中央及屏幕上出现的视觉内容。</p><p>屏幕上首先出现一个“+”，很快，“+”上方会出现一个几何图形，下方会出现文字信息。</p>',
+        '<p>接下来请您努力记下如下图形与文字的对应关系</p>',
+      ]
+      view_texts_images.forEach(v => {
+        tmpT.push(v)
+      })
+      tmpT.push(
+        '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
+        '<p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约10分钟。</p>',
+        '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
+        '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
+      )
+      return tmpT;
+    },
     show_clickable_nav: true,
     show_page_number: true,
     button_label_previous: '返回',
@@ -366,14 +389,20 @@
 
   var feedback_continue_practice = { //在这里呈现文字recap，让被试再记一下
     type: "instructions",
-    pages: ['<p>您的正确率未达到练习要求。</p>',
-      '<p>请您努力记下如下匹配对应关系，再次进行练习。</p>',
-      '<img src="img/Tri.png"></img>' + '<p>新冠</p>',
-      '<img src="img/Cir.png"></img>' + '<p>流感</p>',
-      '<img src="img/Squ.png"></img>' + '<p>细胞</p>',
-      '<p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
-      '<p> 如果你明白了规则，请按任意键继续练习。</p>',
-    ],
+    pages: function() { 
+      let tmpT = [
+      '<p>您的正确率未达到练习要求。</p>',
+      '<p>请您努力记下如下匹配对应关系，再次进行练习。</p>'
+      ]
+      view_texts_images.forEach(v => {
+        tmpT.push(v)
+      })
+      tmpT.push(
+        '<p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
+        '<p> 如果你明白了规则，请按任意键继续练习。</p>'
+      )
+      return tmpT;
+    },
     show_clickable_nav: true,
     show_page_number: true,
     button_label_previous: '返回',
