@@ -236,7 +236,7 @@
       })
       tmpT.push(
         '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
-        '<p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约10分钟。</p>',
+        '<p>您将首先完成12次按键的匹配任务练习。</p><p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p>完成一组任务大约需要5分钟，整个实验将持续大约20分钟。</p>',
         '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
         '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
       )
@@ -267,7 +267,7 @@
 
             line_width: 5 * scale,
             line_color: 'white', // You can use the HTML color name instead of the HEX color.
-            show_start_time: 500,
+            show_start_time: 500, //呈现fixation 600ms = 500 + 100 
             show_end_time: 1100
           },
           {
@@ -278,7 +278,7 @@
             font: (50).toString() + "px 'Arial'",
             text_color: 'white',
             show_start_time: 1000, // ms after the start of the trial
-            show_end_time: 1100,
+            show_end_time: 1100, //呈现图片和文字 100 ms
             scale: 0.6456640625 * scale, // 调整图片大小 视角：3.8° x 3.8°
             origin_center: true
           },
@@ -299,7 +299,7 @@
           }
         ],
         choices: ['f', 'j'], // The participant can respond to the stimuli using the 'f' or 'j' key.
-        response_start_time: 1000, // 定义被试可以开始反应时间
+        response_start_time: 1000, // 定义被试可以开始反应时间，练习没有时间限制窗口
         //canvas_height: 500, // 如果下方需要提示按键
         //prompt: '一致时请按f键，否则按j键.',
         data: jsPsych.timelineVariable("identify"),
@@ -522,7 +522,7 @@
         ],
         choices: ['f', 'j'], // The participant can respond to the stimuli using the 'f' or 'j' key.
         response_start_time: 1000, // 被试可以开始反应时间
-        trial_duration: 2500, //可反应窗口为1500ms
+        trial_duration: 2500, //被试可反应窗口为1500ms
         //canvas_height: 500, // 如果下方需要提示按键
         //prompt: '一致时请按f键，否则按j键.',
         data: jsPsych.timelineVariable("identify"),
