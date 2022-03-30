@@ -89,7 +89,7 @@
   ];
   // define accuracy baseline  参数：练习阶段正确率要求 
   let acc = 70;
-  var view_texts_images = [];
+  var view_texts_images = []; //固定单个被试呈现指导语是一致的
   /* define welcome message trial */
   var welcome = {
     type: "html-keyboard-response",
@@ -119,7 +119,7 @@
 <script type="text/javascript">
   /* create timeline */
   var timeline = [];
-  function permutation(arr, num) {
+  function permutation(arr, num) { //定义排列组合的function
         var r = [];
         (function f(t, a, n) {
             if (n == 0) return r.push(t);
@@ -149,13 +149,13 @@
     button_label: "继续",
     on_finish: function (data) {
       info["ID"] = data.response.Q0;
-      word = permutation(texts, 3)
-      texts = word[parseInt(info["ID"]) % 6]
-      key = permutation(["f","j"], 2)[parseInt(info["ID"]) % 2]
+      word = permutation(texts, 3) //对应的文字
+      texts = word[parseInt(info["ID"]) % 6] //被试id除以6，求余数
+      key = permutation(key, 2)[parseInt(info["ID"]) % 2] //对应的按键
 
-      view_texts_images = []
-      jsPsych.randomization.shuffle(images).forEach((v,i) => {
-        view_texts_images.push(`<p><img src="${v}"></img><p>${texts[images.indexOf(v)]}</p></p>`);
+      view_texts_images = [] //指导语中呈现的图片和文字对应关系
+      jsPsych.randomization.shuffle(images).forEach((v,i) => { //将image随机
+        view_texts_images.push(`<p><img src="${v}"></img><p style = "front-size: 40px">${texts[images.indexOf(v)]}</p></p>`); //image编号和文字对应
       })
     }
   }, 
@@ -235,7 +235,7 @@
         tmpT.push(v)
       })
       tmpT.push(
-        '<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
+        `<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“${key[0]}”</strong>键，否则按<strong>“${key[1]}”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>`,
         '<p>您将首先完成12次按键的匹配任务练习。</p><p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p>完成一组任务大约需要5分钟，整个实验将持续大约20分钟。</p>',
         '<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>',
         '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
@@ -398,7 +398,7 @@
         tmpT.push(v)
       })
       tmpT.push(
-        '<p>当出现的图形与下方的名称一致时请按<strong>“f”</strong>键，否则按<strong>“j”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>',
+        `<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“${key[0]}”</strong>键，否则按<strong>“${key[1]}”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>`,
         '<p> 如果你明白了规则，请按任意键继续练习。</p>'
       )
       return tmpT;
