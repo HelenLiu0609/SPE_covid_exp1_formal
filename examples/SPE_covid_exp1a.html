@@ -156,6 +156,7 @@
       jsPsych.randomization.shuffle(images).forEach((v, i) => { //将image随机
         view_texts_images.push(`<p><img src="${v}"></img><p style = "front-size: 40px">${texts[images.indexOf(v)]}</p></p>`); //image编号和文字对应
       })
+      console.log(`match : ${key[0]}; \nmismatch : ${key[1]};`)
     }
   },
   //{
@@ -304,7 +305,7 @@
         data: jsPsych.timelineVariable("identify"),
         // 记录下反应，以及反应是正确还是错误：on_finish function
         on_finish: function (data) {
-          data.correct_response = jsPsych.timelineVariable('identify', true);//定义正确的按键反应
+          data.correct_response = jsPsych.timelineVariable('identify', true)();//定义正确的按键反应
           data.correct = data.correct_response == data.key_press // 输出0，1/   0是错的 1是对的 
         },
         data: {
@@ -342,22 +343,22 @@
     timeline_variables: [
       // here define one bin 
       // define match tirals here  2 x match 
-      { Image: images[0], word: texts[0], identify: key[0] }, //identify处需要定义: 这一组的正确按键是什么
-      { Image: images[1], word: texts[1], identify: key[0] },
-      { Image: images[2], word: texts[2], identify: key[0] },
+      { Image: images[0], word: texts[0], identify: function() {return key[0]} }, //identify处需要定义: 这一组的正确按键是什么
+      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
+      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
 
-      { Image: images[0], word: texts[0], identify: key[0] },
-      { Image: images[1], word: texts[1], identify: key[0] },
-      { Image: images[2], word: texts[2], identify: key[0] },
+      { Image: images[0], word: texts[0], identify: function() {return key[0]} },
+      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
+      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
 
       //define non-match trials here  2 total sets of non-match 
-      { Image: images[0], word: texts[1], identify: key[1] },
-      { Image: images[1], word: texts[2], identify: key[1] },
-      { Image: images[2], word: texts[0], identify: key[1] },
+      { Image: images[0], word: texts[1], identify: function() {return key[1]} },
+      { Image: images[1], word: texts[2], identify: function() {return key[1]} },
+      { Image: images[2], word: texts[0], identify: function() {return key[1]} },
 
-      { Image: images[0], word: texts[2], identify: key[1] },
-      { Image: images[1], word: texts[0], identify: key[1] },
-      { Image: images[2], word: texts[1], identify: key[1] },
+      { Image: images[0], word: texts[2], identify: function() {return key[1]} },
+      { Image: images[1], word: texts[0], identify: function() {return key[1]} },
+      { Image: images[2], word: texts[1], identify: function() {return key[1]} },
 
     ],
     randomize_order: true, // order randomized 随机呈现 
@@ -531,7 +532,7 @@
         data: jsPsych.timelineVariable("identify"),
         // 加反应正确还是错误 on_finish function
         on_finish: function (data) {
-          data.correct_response = jsPsych.timelineVariable('identify', true);//定义正确的按键反应
+          data.correct_response = jsPsych.timelineVariable('identify', true)();//定义正确的按键反应
           data.correct = data.correct_response == data.key_press // 输出0，1/   0是错的 1是对的
         },
         data: {
@@ -546,22 +547,22 @@
     timeline_variables: [
       //define one bin
       // define match tirals here： 3 matches
-      { Image: images[0], word: texts[0], identify: key[0] }, //identify处需要定义: 这一组的正确按键是什么
-      { Image: images[1], word: texts[1], identify: key[0] },
-      { Image: images[2], word: texts[2], identify: key[0] },
+      { Image: images[0], word: texts[0], identify: function() {return key[0]} }, //identify处需要定义: 这一组的正确按键是什么
+      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
+      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
 
-      { Image: images[0], word: texts[0], identify: key[0] },
-      { Image: images[1], word: texts[1], identify: key[0] },
-      { Image: images[2], word: texts[2], identify: key[0] },
+      { Image: images[0], word: texts[0], identify: function() {return key[0]} },
+      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
+      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
 
       //define non-match trials here  2 total sets of non-match 
-      { Image: images[0], word: texts[1], identify: key[1] },
-      { Image: images[1], word: texts[2], identify: key[1] },
-      { Image: images[2], word: texts[0], identify: key[1] },
+      { Image: images[0], word: texts[1], identify: function() {return key[1]} },
+      { Image: images[1], word: texts[2], identify: function() {return key[1]} },
+      { Image: images[2], word: texts[0], identify: function() {return key[1]} },
 
-      { Image: images[0], word: texts[2], identify: key[1] },
-      { Image: images[1], word: texts[0], identify: key[1] },
-      { Image: images[2], word: texts[1], identify: key[1] },
+      { Image: images[0], word: texts[2], identify: function() {return key[1]} },
+      { Image: images[1], word: texts[0], identify: function() {return key[1]} },
+      { Image: images[2], word: texts[1], identify: function() {return key[1]} },
     ],
     randomize_order: true, // order randomized 随机呈现 
     //define number of bins below
