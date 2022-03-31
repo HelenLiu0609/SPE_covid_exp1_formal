@@ -52,15 +52,15 @@
   /* create timeline */
   var timeline = [];
   function permutation(arr, num) { //定义排列组合的function
-        var r = [];
-        (function f(t, a, n) {
-            if (n == 0) return r.push(t);
-            for (var i = 0, l = a.length; i < l; i++) {
-                f(t.concat(a[i]), a.slice(0, i).concat(a.slice(i + 1)), n - 1);
-            }
-        })([], arr, num);
-        return r;
-    }
+    var r = [];
+    (function f(t, a, n) {
+      if (n == 0) return r.push(t);
+      for (var i = 0, l = a.length; i < l; i++) {
+        f(t.concat(a[i]), a.slice(0, i).concat(a.slice(i + 1)), n - 1);
+      }
+    })([], arr, num);
+    return r;
+  }
 
   // 进入全屏 
   var fullscreen_trial = {
@@ -147,13 +147,17 @@
     button_label: "继续",
     on_finish: function (data) {
       info["ID"] = data.response.Q0;
+      //最终找到了原因：代码没问题，但这里的key成了局部变量，没有被赋值进全局
       key = permutation(key, 2)[parseInt(info["ID"]) % 2] //对应的按键
+      //key = permutation(key, 2)[1] //指导语对，按键错 赋值进入了指导语，但是没进按键
+      //key = permutation(key, parseInt(info["ID"]) % 2 ) //输入001，得到的是【f,j】
+      //key=key[parseInt(info["ID"]) % 2]//效果：奇数错误，偶数正确，按键显示不出来，但实际有反应 输出的还是key = [f,j]
       view_texts_images = [] //指导语中呈现的图片和文字对应关系
-      jsPsych.randomization.shuffle(images).forEach((v,i) => { //将image随机
+      jsPsych.randomization.shuffle(images).forEach((v, i) => { //将image随机
         view_texts_images.push(`<p><img src="${v}"></img><p style = "front-size: 40px">${texts[images.indexOf(v)]}</p></p>`); //image编号和文字对应
       })
     }
-  }, 
+  },
   //{
   //type: "html-button-response",
   //stimulus: "<p style = 'color : white'>你的性别</p>",
@@ -219,9 +223,9 @@
   /* define instructions trial */
   var instructions = {
     type: "instructions",
-    pages: function() {
+    pages: function () {
       let tmpT = [
-      '<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要10分钟完成。</p>',
+        '<p>实验说明：</p><p>您好，欢迎参加本次实验。本次实验大约需要10分钟完成。</p>',
         '<p>任务概况：</p><p>本次实验您需要完成知觉匹配任务。</p><p>您将学习以下几种几何图形与不同标签的对应关系。</p>',
         '<p>具体来说，在实验中，您需要注视电脑屏幕的中央及屏幕上出现的视觉内容。</p><p>屏幕上首先出现一个“+”，很快，“+”上方会出现一个几何图形，下方会出现文字信息。</p>',
         '<p>接下来请您努力记下如下图形与文字的对应关系</p>',
@@ -319,12 +323,15 @@
           let time = jsPsych.data.get().last(1).values()[0].rt; //被试反应时
           if (time > 1500) { //大于1500为过慢
             return "<span class='add_' style='color:white; font-size: 30px;'> 太慢! </span>"
-          } else if (keypress && trial_keypress) {
-            return "<span style='font-size: 30px;'>正确! </span>"
           } else if (time < 200) { //小于两百为过快反应
             return "<span style='font-size: 30px;'>过快! </span>"
           } else {
-            return "<span style='font-size: 30px;'>错误! </span>"
+            if (keypress && trial_keypress) { //如果按键 == 正确反应
+              return "<span style='font-size: 30px;'>正确! </span>"
+            }
+            else {
+              return "<span style='font-size: 30px;'>错误! </span>"
+            }
           }
         },
         choices: jsPsych.NO_KEYS,
@@ -384,10 +391,10 @@
 
   var feedback_continue_practice = { //在这里呈现文字recap，让被试再记一下
     type: "instructions",
-    pages: function() { 
+    pages: function () {
       let tmpT = [
-      '<p>您的正确率未达到练习要求。</p>',
-      '<p>请您努力记下如下匹配对应关系，再次进行练习。</p>'
+        '<p>您的正确率未达到练习要求。</p>',
+        '<p>请您努力记下如下匹配对应关系，再次进行练习。</p>'
       ]
       view_texts_images.forEach(v => {
         tmpT.push(v)
