@@ -1,6 +1,6 @@
 SPE_EXP1a-1b
 ---
-This is Experiemnt 1(as an example demo experiemnt) made from jsPsych in the Covid-tagging project. 
+This is Experiemnt 1(as an example demo experiemnt) made under jsPsych in the Covid-tagging project. 
 
 jsPsych Environment 
 ---
