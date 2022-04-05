@@ -157,6 +157,9 @@
       jsPsych.randomization.shuffle(images).forEach((v, i) => { //将image随机
         view_texts_images.push(`<p><img src="${v}"></img><p style = "front-size: 40px">${texts[images.indexOf(v)]}</p></p>`); //image编号和文字对应
       })
+      console.log(`match : ${key[0]}; \nmismatch : ${key[1]};`)
+      console.log(images);
+      console.log(texts);
     }
   },
   //{
@@ -272,7 +275,9 @@
           },
           {
             obj_type: 'image',
-            file: jsPsych.timelineVariable('Image'),
+            file: function() {
+              return jsPsych.timelineVariable('Image', true)();
+            },
             startX: "center", // location of the cross's center in the canvas
             startY: -165.29 * scale, //图形和文字距离 与加号等距
             font: (50).toString() + "px 'Arial'",
@@ -284,11 +289,13 @@
           },
           {
             obj_type: 'text',
-            file: jsPsych.timelineVariable("word"),
+            file: function() {
+              jsPsych.timelineVariable("word", true)()
+            },
             startX: "center",
             startY: 165.29 * scale, //图形和文字距离 与加号等距
             content: function () {
-              return jsPsych.timelineVariable("word", true);
+              return jsPsych.timelineVariable("word", true)();
             },
             font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
 
@@ -302,15 +309,15 @@
         response_start_time: 1000, // 定义被试可以开始反应时间，练习没有时间限制窗口
         //canvas_height: 500, // 如果下方需要提示按键
         //prompt: '一致时请按f键，否则按j键.',
-        data: jsPsych.timelineVariable("identify"),
+        // data: jsPsych.timelineVariable("identify")(),
         // 记录下反应，以及反应是正确还是错误：on_finish function
         on_finish: function (data) {
           data.correct_response = jsPsych.timelineVariable('identify', true)();//定义正确的按键反应
           data.correct = data.correct_response == data.key_press // 输出0，1/   0是错的 1是对的 
         },
         data: {
-          'Image': jsPsych.timelineVariable('Image'),
-          'word': jsPsych.timelineVariable('word'), // for identification of file  
+          'Image': function() {return jsPsych.timelineVariable('Image')()},
+          'word': function() {return jsPsych.timelineVariable('word')()}, // for identification of file  
         }
       },
       { // 反馈给被试判断正确错误，快慢反馈
@@ -343,22 +350,22 @@
     timeline_variables: [
       // here define one bin 
       // define match tirals here  2 x match 
-      { Image: images[0], word: texts[0], identify: function() {return key[0]} }, //identify处需要定义: 这一组的正确按键是什么
-      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
-      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
+      { Image: function() { return images[0]}, word: function() {return texts[0];}, identify: function() {return key[0]} }, //identify处需要定义: 这一组的正确按键是什么
+      { Image: function() { return images[1]}, word: function() {return texts[1];}, identify: function() {return key[0]} },
+      { Image: function() { return images[2]}, word: function() {return texts[2];}, identify: function() {return key[0]} },
 
-      { Image: images[0], word: texts[0], identify: function() {return key[0]} },
-      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
-      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
+      { Image: function() { return images[0]}, word: function() {return texts[0];}, identify: function() {return key[0]} },
+      { Image: function() { return images[1]}, word: function() {return texts[1];}, identify: function() {return key[0]} },
+      { Image: function() { return images[2]}, word: function() {return texts[2];}, identify: function() {return key[0]} },
 
       //define non-match trials here  2 total sets of non-match 
-      { Image: images[0], word: texts[1], identify: function() {return key[1]} },
-      { Image: images[1], word: texts[2], identify: function() {return key[1]} },
-      { Image: images[2], word: texts[0], identify: function() {return key[1]} },
+      { Image: function() { return images[0]}, word: function() {return texts[1];}, identify: function() {return key[1]} },
+      { Image: function() { return images[1]}, word: function() {return texts[2];}, identify: function() {return key[1]} },
+      { Image: function() { return images[2]}, word: function() {return texts[0];}, identify: function() {return key[1]} },
 
-      { Image: images[0], word: texts[2], identify: function() {return key[1]} },
-      { Image: images[1], word: texts[0], identify: function() {return key[1]} },
-      { Image: images[2], word: texts[1], identify: function() {return key[1]} },
+      { Image: function() { return images[0]}, word: function() {return texts[2];}, identify: function() {return key[1]} },
+      { Image: function() { return images[1]}, word: function() {return texts[0];}, identify: function() {return key[1]} },
+      { Image: function() { return images[2]}, word: function() {return texts[1];}, identify: function() {return key[1]} },
 
     ],
     randomize_order: true, // order randomized 随机呈现 
@@ -497,7 +504,9 @@
           },
           {
             obj_type: 'image',
-            file: jsPsych.timelineVariable('Image'),
+            file: function() {
+              return jsPsych.timelineVariable('Image', true)();
+            },
             startX: "center", // location of the cross's center in the canvas
             startY: -165.29 * scale, //图形和文字距离 与加号等距
             font: (50).toString() + "px 'Arial'",
@@ -509,11 +518,13 @@
           },
           {
             obj_type: 'text',
-            file: jsPsych.timelineVariable("word"),
+            file: function() {
+              return jsPsych.timelineVariable("word", true)()
+            },
             startX: "center",
             startY: 165.29 * scale, //图形和文字距离 与加号等距
             content: function () {
-              return jsPsych.timelineVariable("word", true);
+              return jsPsych.timelineVariable("word", true)();
             },
             font: `${69.58 * scale}px 'Arial'`, //字体和颜色设置 文字视角：3.6° x 1.6°
 
@@ -528,15 +539,15 @@
         trial_duration: 2500, //被试可反应窗口为1500ms
         //canvas_height: 500, // 如果下方需要提示按键
         //prompt: '一致时请按f键，否则按j键.',
-        data: jsPsych.timelineVariable("identify"),
+        // data: jsPsych.timelineVariable("identify")(),
         // 加反应正确还是错误 on_finish function
         on_finish: function (data) {
           data.correct_response = jsPsych.timelineVariable('identify', true)();//定义正确的按键反应
           data.correct = data.correct_response == data.key_press // 输出0，1/   0是错的 1是对的
         },
         data: {
-          'Image': jsPsych.timelineVariable('Image'),
-          'word': jsPsych.timelineVariable('word'),
+          'Image': function() {return jsPsych.timelineVariable('Image', true)()},
+          'word': function() {return jsPsych.timelineVariable('word', true)()},
           // 如果需要加反应正确还是错误：on_finish function
           on_finish: function (data) {
           } // for identification of file  
@@ -546,22 +557,23 @@
     timeline_variables: [
       //define one bin
       // define match tirals here： 3 matches
-      { Image: images[0], word: texts[0], identify: function() {return key[0]} }, //identify处需要定义: 这一组的正确按键是什么
-      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
-      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
+      { Image: function() { return images[0]}, word: function() {return texts[0];}, identify: function() {return key[0]} }, //identify处需要定义: 这一组的正确按键是什么
+      { Image: function() { return images[1]}, word: function() {return texts[1];}, identify: function() {return key[0]} },
+      { Image: function() { return images[2]}, word: function() {return texts[2];}, identify: function() {return key[0]} },
 
-      { Image: images[0], word: texts[0], identify: function() {return key[0]} },
-      { Image: images[1], word: texts[1], identify: function() {return key[0]} },
-      { Image: images[2], word: texts[2], identify: function() {return key[0]} },
+      { Image: function() { return images[0]}, word: function() {return texts[0];}, identify: function() {return key[0]} },
+      { Image: function() { return images[1]}, word: function() {return texts[1];}, identify: function() {return key[0]} },
+      { Image: function() { return images[2]}, word: function() {return texts[2];}, identify: function() {return key[0]} },
 
       //define non-match trials here  2 total sets of non-match 
-      { Image: images[0], word: texts[1], identify: function() {return key[1]} },
-      { Image: images[1], word: texts[2], identify: function() {return key[1]} },
-      { Image: images[2], word: texts[0], identify: function() {return key[1]} },
+      { Image: function() { return images[0]}, word: function() {return texts[1];}, identify: function() {return key[1]} },
+      { Image: function() { return images[1]}, word: function() {return texts[2];}, identify: function() {return key[1]} },
+      { Image: function() { return images[2]}, word: function() {return texts[0];}, identify: function() {return key[1]} },
 
-      { Image: images[0], word: texts[2], identify: function() {return key[1]} },
-      { Image: images[1], word: texts[0], identify: function() {return key[1]} },
-      { Image: images[2], word: texts[1], identify: function() {return key[1]} },
+      { Image: function() { return images[0]}, word: function() {return texts[2];}, identify: function() {return key[1]} },
+      { Image: function() { return images[1]}, word: function() {return texts[0];}, identify: function() {return key[1]} },
+      { Image: function() { return images[2]}, word: function() {return texts[1];}, identify: function() {return key[1]} },
+
     ],
     randomize_order: true, // order randomized 随机呈现 
     //define number of bins below
