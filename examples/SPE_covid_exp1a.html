@@ -249,7 +249,8 @@
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
       });
-      return ["第一页", start + `<div class="box">${tmpI}</div>` + end, `<p class="key">如果二者匹配，请按 ${key[0]} 键</p><p class="key">如果二者不匹配，请按 ${key[1]} 键</p>`];
+      return ["第一页", start + `<div class="box">${tmpI}</div>` + end, 
+      `<p class="key">如果二者匹配，请按 <span type="color: lightskyblue;">${key[0]} 键</span></p><p class="key">如果二者不匹配，请按<span> ${key[1]} 键</p></span>`];
     },
     show_clickable_nav: true,
     show_page_number: true,
