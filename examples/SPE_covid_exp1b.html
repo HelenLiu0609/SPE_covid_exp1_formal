@@ -576,12 +576,8 @@
       { Image: function () { return images[2] }, word: function () { return texts[1]; }, identify: function () { return key[1] } },
 
     ],
-    randomize_order: true, // order randomized 随机呈现 
-    //define number of bins below
-    sample: {
-      type: 'fixed-repetitions',
-      size: 6, // 6 repetitions of each trial
-    },
+    randomize_order: true, // order randomized 随机呈现，这里需要运用纯随机，即先在1个bin中随机，再在重复次数中进行随机。
+    repetitions: 6,   //define number of bins 
     on_finish: function () {
       $("body").css("cursor", "default"); //鼠标出现
     }

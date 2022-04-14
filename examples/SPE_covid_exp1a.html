@@ -244,16 +244,17 @@
       //   '<p> 如果你明白了规则，请点击继续，开始匹配任务的练习。</p>',
       // )
       let start = "<p class='header'>请您记住如下对应关系:</p>",
-        end = "<p class='footer'>按 继续 进入正式实验</p><div>";
+        middle = "<p class='footer'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p>如果你明白了规则：</p><p>请按 继续 进入练习</p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
       });
       return ["<p class='header'>实验说明：</p><p>您好，欢迎参加本实验。本次实验大约需要15分钟完成。</p><p>在本实验中，您需要完成一个简单的知觉匹配任务。</p><p>您将学习几种几何图形与不同标签的对应关系。</p>",
-        start + `<div class="box">${tmpI}</div>` + 
-        `<p class='footer'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer'>如果二者匹配，请按 <span style="color: lightskyblue;">${key[0]} 键</span></p><p class='footer'>如果二者不匹配，请按<span style="color: lightskyblue;"> ${key[1]} 键</p></span><p class='footer'>请在实验过程中将您的食指放在电脑键盘的相应键位上进行按键。</p></span>`,
+        start + `<div class="box">${tmpI}</div>` +
+        `<p class='footer'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer'>如果二者匹配，请按 <span style="color: lightskyblue;">${key[0]} 键</span></p><p class='footer'>如果二者不匹配，请按<span style="color: lightskyblue;"> ${key[1]} 键</p></span><p class='footer'>请在实验过程中将您的<span style="color: lightskyblue;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
         `<p>您将首先完成12次按键的匹配任务练习。</p><p>完成匹配任务的练习之后，您将完成3组匹配任务，每组包括72次按键反应，每组完成后会有休息时间。</p><p>完成一组任务大约需要3分钟，整个实验将持续大约15分钟。</p>`,
-        `<p>如果对本实验还有不清楚之处，请立即向实验员咨询。</p><p>如果你明白了规则：</p>` + end];
+        middle + end];
     },
     show_clickable_nav: true,
     show_page_number: true,
@@ -376,7 +377,7 @@
 
     ],
     randomize_order: true, // order randomized 随机呈现 
-    repetitions: 6,
+    repetitions: 1,
     on_finish: function () {
       $("body").css("cursor", "default"); //鼠标出现
     }
@@ -415,13 +416,17 @@
       //   `<p>您的任务是判断几何图形与图形名称或文字标签是否匹配：</p><p>当出现的图形与下方的名称一致时请按<strong>“${key[0]}”</strong>键，否则按<strong>“${key[1]}”</strong>键。</p><p>请您在实验过程中，将两个手指放到相应的键盘位上</p>`,
       //   '<p> 如果你明白了规则，请按任意键继续练习。</p>'
       // )
-      let start = "<p class='header'>请您记住如下联结:</p>",
-        end = "<p class='footer'>按 继续 进入正式实验</p><div>";
+      let start = "<p class='header'>请您努力记下如下匹配对应关系，再次进行练习。</p>",
+        middle = "<p class='footer'>如果对本实验还有不清楚之处，请立即向实验员咨询。</p>",
+        end = "<p>如果你明白了规则：</p><p>请按 继续 进入练习</p><div>";
       let tmpI = "";
       view_texts_images.forEach(v => {
         tmpI += `<p class="content">${v}</p>`;
       });
-      return ["第一页", start + `<div class="box">${tmpI}</div>` + end, `<p class="key">如果二者匹配，请按 ${key[0]} 键</p><p class="key">如果二者不匹配，请按 ${key[1]} 键</p>`];
+      return ["<p class='header'>您的正确率未达到进入正式实验的要求。</p>",
+        start + `<div class="box">${tmpI}</div>` +
+        `<p class='footer'>您的任务是判断几何图形与图形名称或文字标签是否匹配，</p><p class='footer'>如果二者匹配，请按 <span style="color: lightskyblue;">${key[0]} 键</span></p><p class='footer'>如果二者不匹配，请按<span style="color: lightskyblue;"> ${key[1]} 键</p></span><p class='footer'>请在实验过程中将您的<span style="color: lightskyblue;">食指</span>放在电脑键盘的相应键位上进行按键。</p></span>`,
+        middle + end];
     },
     show_clickable_nav: true,
     show_page_number: true,
@@ -581,9 +586,8 @@
       { Image: images[1], word: texts[0], identify: function () { return key[1] } },
       { Image: images[2], word: texts[1], identify: function () { return key[1] } },
     ],
-    randomize_order: true, // order randomized 随机呈现 
-    //define number of bins below
-    repetitions: 6,
+    randomize_order: true, // order randomized 随机呈现，这里需要运用纯随机，即先在1个bin中随机，再在重复次数中进行随机。
+    repetitions: 6,   //define number of bins 
     on_finish: function () {
       $("body").css("cursor", "default"); //鼠标出现
     }
