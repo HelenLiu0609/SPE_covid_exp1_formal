@@ -89,7 +89,7 @@
   // All the labels used in experiment 实验用到的标签名称
   var texts = ["三角",
     "圆形",
-    "方形"
+    "方块"
   ];
   // define keyboard response 实验用到的具体的按键
   var key = ["f",
@@ -150,9 +150,6 @@
       info["ID"] = data.response.Q0;
       //最终找到了原因：代码没问题，但这里的key成了局部变量，没有被赋值进全局
       key = permutation(key, 2)[parseInt(info["ID"]) % 2] //对应的按键
-      //key = permutation(key, 2)[1] //指导语对，按键错 赋值进入了指导语，但是没进按键
-      //key = permutation(key, parseInt(info["ID"]) % 2 ) //输入001，得到的是【f,j】
-      //key=key[parseInt(info["ID"]) % 2]//效果：奇数错误，偶数正确，按键显示不出来，但实际有反应 输出的还是key = [f,j]
       view_texts_images = [] //指导语中呈现的图片和文字对应关系
       jsPsych.randomization.shuffle(images).forEach((v, i) => { //将image随机
         view_texts_images.push(`<img src="${v}">---${texts[images.indexOf(v)]}`); //image编号和文字对应
@@ -215,7 +212,7 @@
 
 <script>
   //设置根据屏幕控制显示图形大小方位一致
-  // 以电脑屏幕1440*900为标准尺寸
+  //以电脑屏幕1440*900为标准尺寸，在其他尺寸上按比例进行缩放
   let scale = Math.min($(document).width() / 1440, $(document).height() / 900);
   $(window).resize(function () {
     scale = Math.min($(document).width() / 1440, $(document).height() / 900);
