@@ -14,6 +14,8 @@ This is the link to run [Exp 1b](https://helenliu0609.github.io/SPE_covid_exp1_f
 
 This is the link to run [The Questionnaire](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_Questionnaire.html)
 
+This is the link to run [Exp 1a with modificatin on shapes](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_exp1a_change_shapes.html)
+
 jsPsych Raw Code
 ---
 You can easily modify and set up your own experiment using the [raw code ](/examples) 
