@@ -20,7 +20,7 @@ jsPsych Raw Code
 ---
 You can easily modify and set up your own experiment by modifying the [raw code ](/examples) 
 
-Some important notes
+Some Important Notes
 ---
 While you are running the experiment...
 
