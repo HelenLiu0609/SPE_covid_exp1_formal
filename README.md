@@ -1,6 +1,6 @@
 SPE_EXP1a-1b
 ---
-This is Experiemnt 1(as an example demo experiemnt) made under jsPsych in the Covid-tagging project. 
+This is Experiemnt 1(also as an example demo experiemnt) made using jsPsych in the Covid-tagging project. 
 
 jsPsych Environment 
 ---
@@ -14,13 +14,13 @@ This is the link to run [Exp 1b](https://helenliu0609.github.io/SPE_covid_exp1_f
 
 This is the link to run [The Questionnaire](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_Questionnaire.html)
 
-This is the link to run [Exp 1a with modificatin on shapes](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_exp1a_change_shapes.html)
+This is the link to run [Exp 1a with modificatin on shapes](https://helenliu0609.github.io/SPE_covid_exp1_formal/examples/SPE_covid_exp1a_change_shapes.html) (for test only)
 
 jsPsych Raw Code
 ---
-You can easily modify and set up your own experiment using the [raw code ](/examples) 
+You can easily modify and set up your own experiment by modifying the [raw code ](/examples) 
 
-Note
+Some important notes
 ---
 While you are running the experiment...
 
@@ -28,4 +28,4 @@ While you are running the experiment...
 
 If you want to run the experiment remotely（e.g., from your local terminal):
 
-- you should fork the current repository（the whole folders，to ensure that all the js. pugins are included）. 
+- you need to fork the current repository（all folders，to ensure that all the js. pugins are included）. 
