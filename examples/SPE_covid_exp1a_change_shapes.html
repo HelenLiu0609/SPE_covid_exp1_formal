@@ -697,7 +697,7 @@
   jsPsych.init({
     timeline: timeline,
     on_finish: function () {
-      // jsPsych.data.get().addToAll(info).localSave("csv", `rawdata_${info["ID"]}_1a.csv`); //原始数据读取和保存
+      jsPsych.data.get().addToAll(info).localSave("csv", `rawdata_${info["ID"]}_1a_1.csv`); //原始数据读取和保存
       let DOM = document.getElementById("jspsych-content");
       DOM.innerHTML = "<p>正在保存数据中，请稍后</p>";
 
